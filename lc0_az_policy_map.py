@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import numpy as np
-from policy_index import policy_index
+from lib.policy_index import policy_index
 
 columns = 'abcdefgh'
 rows = '12345678'
@@ -130,6 +130,7 @@ def make_map(kind='matrix'):
     for e in range(80 * 8 * 8):
         for i in range(len(policy_index)):
             pass
+    np.set_printoptions(threshold=sys.maxsize)
     if kind == 'matrix':
         return az_to_lc0
     elif kind == 'index':
@@ -142,39 +143,39 @@ if __name__ == "__main__":
         raise ValueError(
             "Output filename is needed as a command line argument")
 
-    az_to_lc0 = np.ravel(make_map('index'))
-    header = \
-"""/*
- This file is part of Leela Chess Zero.
- Copyright (C) 2019 The LCZero Authors
+    az_to_lc0 = np.ravel(make_map('matrix'))
+#     header = \
+# """/*
+#  This file is part of Leela Chess Zero.
+#  Copyright (C) 2019 The LCZero Authors
 
- Leela Chess is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+#  Leela Chess is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
 
- Leela Chess is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+#  Leela Chess is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with Leela Chess.  If not, see <http://www.gnu.org/licenses/>.
- */
+#  You should have received a copy of the GNU General Public License
+#  along with Leela Chess.  If not, see <http://www.gnu.org/licenses/>.
+#  */
 
-#pragma once
+# #pragma once
 
-namespace lczero {
-"""
-    line_length = 12
-    with open(sys.argv[1], 'w') as f:
-        f.write(header + '\n')
-        f.write('const short kConvPolicyMap[] = {\\\n')
-        for e, i in enumerate(az_to_lc0):
-            if e % line_length == 0 and e > 0:
-                f.write('\n')
-            f.write(str(i).rjust(5))
-            if e != len(az_to_lc0) - 1:
-                f.write(',')
-        f.write('};\n\n')
-        f.write('}  // namespace lczero')
+# namespace lczero {
+# """
+#     line_length = 12
+#     with open(sys.argv[1], 'w') as f:
+#         f.write(header + '\n')
+#         f.write('const short kConvPolicyMap[] = {\\\n')
+#         for e, i in enumerate(az_to_lc0):
+#             if e % line_length == 0 and e > 0:
+#                 f.write('\n')
+#             f.write(str(i).rjust(5))
+#             if e != len(az_to_lc0) - 1:
+#                 f.write(',')
+#         f.write('};\n\n')
+#         f.write('}  // namespace lczero')

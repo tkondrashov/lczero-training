@@ -1,0 +1,36 @@
+%YAML 1.2
+---
+name: 'default'
+gpu: 0
+
+dataset:
+  num_chunks: 40
+  train_ratio: 0.90
+  input: '/home/sasha/chess/training_data/'
+
+
+training:
+  batch_size: 2048                    # training batch
+  test_steps: 200                    # eval test set values after this many steps
+  train_avg_report_steps: 10          # training reports its average values after this many steps.
+  total_steps: 140000                 # terminate after these steps
+  warmup_steps: 20                    # if global step is less than this, scale the current LR by ratio of global step to this value
+  # checkpoint_steps: 10000           # optional frequency for checkpointing before finish
+  shuffle_size: 200                   # size of the shuffle buffer
+  lr_values:                          # list of learning rates
+    - 0.02
+    - 0.002
+    - 0.0005
+  lr_boundaries:                      # list of boundaries
+    - 100000
+    - 130000
+  moves_left_loss_weight: 1.0         # weight of moves left
+  policy_loss_weight: 1.0             # weight of policy loss
+  value_loss_weight: 1.0              # weight of value loss
+  path: '/home/sasha/chess/networks/' # network storage dir
+
+model:
+  filters: 64
+  residual_blocks: 6
+  se_ratio: 1
+...

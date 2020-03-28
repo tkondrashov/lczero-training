@@ -2,7 +2,7 @@
 import argparse
 import os
 import yaml
-import tfprocess
+import lib.tfprocess
 from net import Net
 
 argparser = argparse.ArgumentParser(description='Convert net to model.')

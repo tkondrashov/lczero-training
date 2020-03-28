@@ -4,7 +4,7 @@ import os
 import yaml
 import sys
 import tensorflow as tf
-from tfprocess import TFProcess
+from lib.tfprocess import TFProcess
 
 START_FROM = 0
 
